@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
@@ -8,7 +9,10 @@ import HomeScreen from '.';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
+  const [loaded] = useFonts({
+    SpaceMono: require('../../assets/fonts/SpaceMono-Regular.ttf'),
+    GilroyExtraBold: require('../../assets/fonts/Gilroy-ExtraBold.otf'),
+  });
 
   const tabBarLabelStyle = {
     color: 'white',
@@ -16,9 +20,6 @@ export default function TabLayout() {
     marginBottom: 6,
     padding: 6.5,
     borderRadius: 10,
-    
-    
-    
   };
 
   return (
@@ -29,13 +30,7 @@ export default function TabLayout() {
         headerShown:false,
         tabBarInactiveBackgroundColor: 'black',
         tabBarActiveBackgroundColor: '#ff7200' ,
-        tabBarStyle:{
-          borderColor:'gray',
-          borderWidth: 1,
-          
-        }
-        
-       
+      
       }}>
       <Tabs.Screen 
         name="index"
@@ -44,8 +39,13 @@ export default function TabLayout() {
           /**tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'play' : 'home-outline'} color={'#ff7200'} />
           ),*/
-          tabBarLabel:'home',
-          tabBarLabelStyle
+          tabBarLabel:'Home',
+          
+          tabBarLabelStyle:{
+            fontFamily: 'GilroyExtraBold',
+            fontSize: 16,
+            padding: 15,
+          }
         }}
       >
         
@@ -54,25 +54,47 @@ export default function TabLayout() {
       <Tabs.Screen 
         name="radio"
         options={{
-          tabBarLabelStyle
+          tabBarLabel:'Radio',
+
+          tabBarLabelStyle:{
+            fontFamily: 'GilroyExtraBold',
+            fontSize: 16,
+            padding: 15,
+          }
         }}
       />
       <Tabs.Screen 
         name="news"
         options={{
-          tabBarLabelStyle
+          tabBarLabel:'News',
+          tabBarLabelStyle:{
+            fontFamily: 'GilroyExtraBold',
+            fontSize: 16,
+            padding: 15,
+          }
         }}
       />
       <Tabs.Screen 
         name="shop"
         options={{
-          tabBarLabelStyle
+          tabBarLabel:'Shop',
+          tabBarLabelStyle:{
+
+            fontFamily: 'GilroyExtraBold',
+            fontSize: 16,
+            padding: 15,
+          }
         }}
       />
       <Tabs.Screen 
         name="videos"
         options={{
-          tabBarLabelStyle
+          tabBarLabel:'Videos',
+          tabBarLabelStyle:{
+            fontFamily: 'GilroyExtraBold',
+            fontSize: 16,
+            padding: 12,
+          }
         }}
       />
       

@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Platform, View,Text, Button, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -11,22 +11,23 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import Foundation from '@expo/vector-icons/Foundation';
 import { StatusBar } from 'react-native';
 import axios from 'axios';
-
-
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Svg, {Line} from 'react-native-svg';
+import Animated, { Easing, useSharedValue, useAnimatedProps, withTiming } from 'react-native-reanimated';
+import { useFonts } from 'expo-font';
 /**
  * 
  * @returns function that renders home page
  */
 
-
-
-
-
-
-
 export default function HomeScreen() {
   const [play,setPlay] = useState(false);
-
+  const [songInfo, setSongInfo] = useState({ artist_name: '', song_name: '' });
+  const [error, setError] = useState('');
+  const [loaded] = useFonts({
+    SpaceMono: require('../../assets/fonts/SpaceMono-Regular.ttf'),
+    GilroyExtraBold: require('../../assets/fonts/Gilroy-ExtraBold.otf'),
+  });
   const playMusic = async () => {
     try {
       setPlay(true);
@@ -49,6 +50,20 @@ export default function HomeScreen() {
       console.error('Error:', error);
     }
   }
+  useEffect(() => {
+    const fetchSongInfo = async () => {
+      try {
+        const response = await axios.get('http://localhost:5100/current-song');
+        console.log('Output:', response.data.output);
+        setSongInfo(response.data);
+      } catch (err) {
+        setError('Erro ao buscar informações da música.');
+      }
+    };
+
+    fetchSongInfo();
+  }, []);
+  
   
   return (
     
@@ -75,20 +90,25 @@ export default function HomeScreen() {
       </View>
 
         
-        
+              
+        <View style={styles.bottomPlay}  >
+              
 
-        <View style={styles.bottomPlay}>
           { !play &&
-            <TouchableOpacity onPress={playMusic}>
-              <Text >Play Now</Text>
+            <TouchableOpacity onPress={playMusic} style={{borderColor: Colors.black, marginLeft:10}} >
+              <AntDesign name="play" size={24} color="black" />
+              
             </TouchableOpacity>
           }
           {
             play &&
-            <TouchableOpacity onPress={stopMusic}>
-              <Text >Stop</Text>
+            <TouchableOpacity onPress={stopMusic} style={{marginLeft:10}}>
+              <AntDesign name="pausecircle" size={24} color="black" />
             </TouchableOpacity>
           }
+          <View>
+                <Text style={{fontSize:14, marginLeft:5, color:Colors.black, fontFamily: 'GilroyExtraBold', }}>{songInfo.artist_name} - {songInfo.song_name}</Text>
+          </View>
         </View>
       </ThemeProvider>
     </ScrollView>
@@ -171,18 +191,20 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   bottomPlay:{
-    position: 'absolute',
-    top: '0%',
-    
-    
-    
-    width: '100%',
-    height: 100,
+    position: 'relative',
+    bottom:0,
+    marginTop: 20,
+    height: 50,
     backgroundColor: '#ff7200',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '100%',
     borderRadius: 10,
-    marginBottom: 20,
+    flexDirection: 'row',
+    fontFamily: 'GilroyExtraBold',
+    alignItems: 'center',
+    gap: 10,
+    
+    
   }
   
 });
