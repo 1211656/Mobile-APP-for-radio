@@ -16,4 +16,8 @@ server.on('close', (code) => {
   console.log(`Server process exited with code ${code}`);
 });
 
+server.on('error', (err) => {
+  console.error(`Failed to start server: ${err}`);
+});
+
 console.log('Flask server script executed.');

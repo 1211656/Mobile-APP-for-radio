@@ -9,7 +9,7 @@
   "scripts": {
   
     
-  "start": "concurrently \"expo start\" \"npm run start-server\"",
+  "start": "expo start",
   
     
   "reset-project": "node ./scripts/reset-project.js",
@@ -30,7 +30,10 @@
   "lint": "expo lint",
   
     
-  "start-server": "node ./scripts/startServer.js"
+  "start-server": "node ./scripts/startServer.js",
+  
+    
+  "dev": "concurrently \"npm start\" \"npm run start-server\""
   
   },
   
@@ -104,7 +107,7 @@
   "react-native-screens": "3.31.1",
   
     
-  "react-native-svg": "^15.8.0",
+  "react-native-svg": "^15.2.0",
   
     
   "react-native-vector-icons": "^10.2.0",

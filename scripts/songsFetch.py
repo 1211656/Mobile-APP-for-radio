@@ -18,3 +18,4 @@ try:
 except Exception as e:
     print(f"Erro ao reproduzir o stream de áudio: {e}")
 
+

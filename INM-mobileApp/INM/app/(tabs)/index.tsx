@@ -13,6 +13,7 @@ import { StatusBar } from 'react-native';
 import axios from 'axios';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Svg, {Line} from 'react-native-svg';
+import RedesSociais from '@/components/RedesSociais';
 import Animated, { Easing, useSharedValue, useAnimatedProps, withTiming } from 'react-native-reanimated';
 import { useFonts } from 'expo-font';
 /**
@@ -22,7 +23,7 @@ import { useFonts } from 'expo-font';
 
 export default function HomeScreen() {
   const [play,setPlay] = useState(false);
-  const [songInfo, setSongInfo] = useState({ artist_name: '', song_name: '' });
+  const [songInfo, setSongInfo] = useState({ radio_info: '' });
   const [error, setError] = useState('');
   const [loaded] = useFonts({
     SpaceMono: require('../../assets/fonts/SpaceMono-Regular.ttf'),
@@ -31,7 +32,7 @@ export default function HomeScreen() {
   const playMusic = async () => {
     try {
       setPlay(true);
-      const response = await axios.get('http://127.0.0.1:5100/play');
+      const response = await axios.get('http://192.168.1.75:5100/play');
       
       console.log('Output:', response.data.output);
       console.log('Error:', response.data.error);
@@ -42,7 +43,7 @@ export default function HomeScreen() {
   const stopMusic = async () => {
     try {
       setPlay(false);
-      const response = await axios.get('http://127.0.0.1:5100/stop');
+      const response = await axios.get('http://192.168.1.75:5100/stop');
       
       console.log('Output:', response.data.output);
       console.log('Error:', response.data.error);
@@ -51,18 +52,19 @@ export default function HomeScreen() {
     }
   }
   useEffect(() => {
-    const fetchSongInfo = async () => {
+    const fetchCurrentSong = async () => {
       try {
-        const response = await axios.get('http://localhost:5100/current-song');
-        console.log('Output:', response.data.output);
+        const response = await axios.get('http://192.168.1.75:5100/current-song');
         setSongInfo(response.data);
-      } catch (err) {
-        setError('Erro ao buscar informações da música.');
+      } catch (error) {
+        console.error('There was an error fetching the current song!', error);
       }
     };
 
-    fetchSongInfo();
+    fetchCurrentSong();
   }, []);
+
+
   
   
   return (
@@ -71,22 +73,16 @@ export default function HomeScreen() {
     <StatusBar barStyle="light-content" /> 
     <ScrollView style={{backgroundColor: 'black'}}>
       <ThemeProvider value={DarkTheme}>
+
+      <RedesSociais></RedesSociais>
+
+      <View style={styles.imageBackground}>
+        <Image src={"https://ineedmusic.pt/wp-content/uploads/2023/12/INMR-3D-HOME-01.png"} style={{height:125, width: 550, borderWidth: 1, borderColor: Colors.black, marginTop: 20}}></Image>
+      </View>
+
       <View style={styles.topView}>
-          <Image source={require('../../assets/images/AF-INEEDMUSIC-LOGO-WEBSITE.jpg')} style={styles.logoBrand} />
-        <View style={styles.logosView}>
-          <TouchableOpacity onPress={()=>{}}>
-            <AntDesign name="facebook-square" size={23} color="black" style={styles.logosSocialFacebook} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>{}} >
-            <Foundation name="social-instagram" size={28} color="black" style={styles.logosSocialInstagram} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>{}} >
-            <Foundation name="social-linkedin" size={28} color="black" style={styles.logosSocialLinkedin} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>{}} >
-            <AntDesign name="youtube" size={27} color="black" style={styles.logosSocialYoutube} />
-          </TouchableOpacity>
-        </View>
+          {/*<Image source={require('../../assets/images/AF-INEEDMUSIC-LOGO-WEBSITE.jpg')} style={styles.logoBrand} />*/}
+        
       </View>
 
         
@@ -107,9 +103,12 @@ export default function HomeScreen() {
             </TouchableOpacity>
           }
           <View>
-                <Text style={{fontSize:14, marginLeft:5, color:Colors.black, fontFamily: 'GilroyExtraBold', }}>{songInfo.artist_name} - {songInfo.song_name}</Text>
+                <Text style={{fontSize:14, marginLeft:5, color:Colors.black, fontFamily: 'GilroyExtraBold', }}>{songInfo.radio_info}</Text>
           </View>
         </View>
+
+      
+
       </ThemeProvider>
     </ScrollView>
   </GestureHandlerRootView>
@@ -165,7 +164,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent:'flex-end',
     gap: 10,
-    marginRight: 10
+    marginRight: 10,
+    marginTop: 30,
   },
   buttonBorderLogoSocial:{
     width: 35,
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     justifyContent:'space-between',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 12,
+   
     
   },
   logoBrand:{
@@ -192,7 +192,6 @@ const styles = StyleSheet.create({
   },
   bottomPlay:{
     position: 'relative',
-    bottom:0,
     marginTop: 20,
     height: 50,
     backgroundColor: '#ff7200',
@@ -203,7 +202,19 @@ const styles = StyleSheet.create({
     fontFamily: 'GilroyExtraBold',
     alignItems: 'center',
     gap: 10,
+  },
+  imageBackground:{
+    alignItems: 'center',
+    padding: 0,
     
+  },
+  boxInImageBackground:{
+    backgroundColor: '#ff7200',
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
     
   }
   
