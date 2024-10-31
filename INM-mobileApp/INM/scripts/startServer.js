@@ -2,7 +2,7 @@ const { spawn } = require('child_process');
 
 console.log('Starting Flask server...');
 
-const server = spawn('python3', ['../../route.py']);
+const server = spawn('python3', ['../../scripts/route.py']);
 
 server.stdout.on('data', (data) => {
   console.log(`Server stdout: ${data}`);

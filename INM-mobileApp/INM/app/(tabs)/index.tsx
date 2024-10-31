@@ -32,7 +32,7 @@ export default function HomeScreen() {
   const playMusic = async () => {
     try {
       setPlay(true);
-      const response = await axios.get('http://192.168.1.75:5100/play');
+      const response = await axios.get('http://0.0.0.0:5200/play');
       
       console.log('Output:', response.data.output);
       console.log('Error:', response.data.error);
@@ -43,7 +43,7 @@ export default function HomeScreen() {
   const stopMusic = async () => {
     try {
       setPlay(false);
-      const response = await axios.get('http://192.168.1.75:5100/stop');
+      const response = await axios.get('http://0.0.0.0:5200/stop');
       
       console.log('Output:', response.data.output);
       console.log('Error:', response.data.error);
@@ -54,7 +54,7 @@ export default function HomeScreen() {
   useEffect(() => {
     const fetchCurrentSong = async () => {
       try {
-        const response = await axios.get('http://192.168.1.75:5100/current-song');
+        const response = await axios.get('http://0.0.0.0:5200/current-song');
         setSongInfo(response.data);
       } catch (error) {
         console.error('There was an error fetching the current song!', error);
@@ -99,11 +99,27 @@ export default function HomeScreen() {
           {
             play &&
             <TouchableOpacity onPress={stopMusic} style={{marginLeft:10}}>
-              <AntDesign name="pausecircle" size={24} color="black" />
+              <AntDesign name="pausecircle" size={24} color="white" />
             </TouchableOpacity>
           }
-          <View>
-                <Text style={{fontSize:14, marginLeft:5, color:Colors.black, fontFamily: 'GilroyExtraBold', }}>{songInfo.radio_info}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <View>
+              <Image src='https://ineedmusic.pt/wp-content/uploads/onair/artwork.png' style={{height: 45, width:45}}></Image>
+            </View>
+            <View style={{justifyContent:'center',alignItems:'flex-start'}}>
+                  <Text style={{fontSize:10, marginLeft:5, color:Colors.white, fontFamily: 'GilroyExtraBold', textTransform: 'uppercase' }}
+                    adjustsFontSizeToFit
+                    numberOfLines={1}
+                  >
+                    I need music radio
+                  </Text>
+                  <Text style={{fontSize:10, marginLeft:5, color:Colors.white, fontFamily: 'GilroyExtraBold', textTransform: 'uppercase' }}
+                    adjustsFontSizeToFit
+                    numberOfLines={1}
+                  >
+                    {songInfo.radio_info}
+                  </Text>
+            </View>
           </View>
         </View>
 
