@@ -8,7 +8,28 @@ async def play_music():
     global player
     try:
         
-        player = vlc.MediaPlayer(url)
+
+        print("Tentando criar instância do VLC...")
+        # Crie a instância do VLC sem a opção '--no-ssl-cert-verification'
+        instance = vlc.Instance()
+        if instance is None:
+            raise Exception("Falha ao criar instância do VLC")
+
+        print("Instância do VLC criada com sucesso.")
+
+        # Crie um novo player de mídia
+        player = instance.media_player_new()
+        if player is None:
+            raise Exception("Falha ao criar player de mídia")
+
+        print("Player de mídia criado com sucesso.")
+
+        # Crie uma nova mídia a partir do URL
+        media = instance.media_new(url)
+        if media is None:
+            raise Exception("Falha ao criar mídia")
+        
+        player.set_media(media)
         player.play()
         print()
         print("----------------------")

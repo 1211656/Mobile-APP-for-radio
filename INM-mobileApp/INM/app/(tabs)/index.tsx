@@ -32,7 +32,7 @@ export default function HomeScreen() {
   const playMusic = async () => {
     try {
       setPlay(true);
-      const response = await axios.get('http://0.0.0.0:5200/play');
+      const response = await axios.get('http://192.168.56.1:5200/play');
       
       console.log('Output:', response.data.output);
       console.log('Error:', response.data.error);
@@ -43,7 +43,7 @@ export default function HomeScreen() {
   const stopMusic = async () => {
     try {
       setPlay(false);
-      const response = await axios.get('http://0.0.0.0:5200/stop');
+      const response = await axios.get('http://192.168.56.1:5200/stop');
       
       console.log('Output:', response.data.output);
       console.log('Error:', response.data.error);
@@ -54,7 +54,7 @@ export default function HomeScreen() {
   useEffect(() => {
     const fetchCurrentSong = async () => {
       try {
-        const response = await axios.get('http://0.0.0.0:5200/current-song');
+        const response = await axios.get('http://192.168.56.1:5200/current-song');
         setSongInfo(response.data);
       } catch (error) {
         console.error('There was an error fetching the current song!', error);

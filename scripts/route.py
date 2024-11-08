@@ -5,6 +5,7 @@ from quart import Quart, jsonify
 from songsFetch import play_music, stop_music
 import asyncio
 import aiohttp
+import vlc
 
 app = Quart(__name__)
 process = None  # Inicializa a variável global process
@@ -22,13 +23,12 @@ async def get_pid_by_port(port):
 
 @app.route('/play', methods=['GET'])
 async def run_script():
+    
     global process
     if process is None or process.poll() is not None:  
         try:
-            
-            asyncio.create_task(play_music())
+            await asyncio.create_task(play_music())
             print("Started playing music")
-            
             return jsonify({'message': 'Music started successfully'})
         except Exception as e:
             print(f"Error starting music: {e}")

@@ -8,28 +8,13 @@
   
   "scripts": {
   
-    
   "ios": "expo start --ios",
-  
-    
   "web": "expo start --web",
-  
-    
   "test": "jest --watchAll",
-  
-    
   "lint": "expo lint",
-  
-    
   "start-server": "node ./scripts/startServer.js",
-  
-    
   "start-react": "expo start --port 8082",
-  
-    
   "dev": "concurrently \"npm run start-react\" \"npm run start-server\"",
-  
-    
   "start": "npm-run-all start-react ios"
   
   },
