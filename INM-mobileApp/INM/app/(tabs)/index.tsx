@@ -99,7 +99,7 @@ export default function HomeScreen() {
           {
             play &&
             <TouchableOpacity onPress={stopMusic} style={{marginLeft:10}}>
-              <AntDesign name="pausecircle" size={24} color="white" />
+              <AntDesign name="pausecircle" size={24} color="black" />
             </TouchableOpacity>
           }
           <View style={{flexDirection: 'row'}}>
@@ -107,15 +107,15 @@ export default function HomeScreen() {
               <Image src='https://ineedmusic.pt/wp-content/uploads/onair/artwork.png' style={{height: 45, width:45}}></Image>
             </View>
             <View style={{justifyContent:'center',alignItems:'flex-start'}}>
-                  <Text style={{fontSize:10, marginLeft:5, color:Colors.white, fontFamily: 'GilroyExtraBold', textTransform: 'uppercase' }}
+                  <Text style={{fontSize:13, marginLeft:5, color:Colors.black, fontFamily: 'GilroyExtraBold', textTransform: 'uppercase', fontWeight:'800' }}
                     adjustsFontSizeToFit
                     numberOfLines={1}
                   >
                     I need music radio
                   </Text>
-                  <Text style={{fontSize:10, marginLeft:5, color:Colors.white, fontFamily: 'GilroyExtraBold', textTransform: 'uppercase' }}
+                  <Text style={{fontSize:10, marginLeft:5, color:Colors.black, fontFamily: 'GilroyExtraBold', textTransform: 'uppercase', fontWeight:'200' }}
                     adjustsFontSizeToFit
-                    numberOfLines={1}
+                    numberOfLines={3}
                   >
                     {songInfo.radio_info}
                   </Text>
@@ -123,6 +123,21 @@ export default function HomeScreen() {
           </View>
         </View>
 
+          <View style={{flexDirection:'column'}}>
+            <View style={{marginTop:60, justifyContent:'center', alignItems:'center'}}>
+              <Text style={{color:'black', backgroundColor:'#ff7200',padding:5,textTransform:'uppercase',fontFamily:'GilroyExtraBold', fontSize:20}}>Radio Shows</Text>
+            </View>
+            <View style={{ marginTop: 10}}>
+              <Image src='https://ineedmusic.pt/wp-content/uploads/onair/onair.jpg' style={{height:250,maxWidth:'100%'}} resizeMode='contain'></Image>
+            </View>
+          </View>
+
+          <View style={{flexDirection:'column', justifyContent:'center', alignItems:'center', marginTop:10}}>
+            <View>
+              <Text style={{color:'#ff7200', fontSize:17, textTransform:'uppercase', fontFamily:'GilroyExtraBold' }}>Upcoming Shows</Text>
+            </View>
+          </View>
+          
       
 
       </ThemeProvider>
@@ -208,7 +223,7 @@ const styles = StyleSheet.create({
   },
   bottomPlay:{
     position: 'relative',
-    marginTop: 20,
+    marginTop: 0,
     height: 50,
     backgroundColor: '#ff7200',
     justifyContent: 'flex-start',
@@ -218,8 +233,10 @@ const styles = StyleSheet.create({
     fontFamily: 'GilroyExtraBold',
     alignItems: 'center',
     gap: 10,
+    
   },
   imageBackground:{
+    marginTop:40,
     alignItems: 'center',
     padding: 0,
     

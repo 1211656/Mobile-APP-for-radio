@@ -5,7 +5,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import HomeScreen from '.';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -21,85 +22,86 @@ export default function TabLayout() {
     padding: 6.5,
     borderRadius: 10,
   };
+  const Tab = createBottomTabNavigator();
 
   return (
     
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: 'black',
-        headerShown:false,
-        tabBarInactiveBackgroundColor: 'black',
-        tabBarActiveBackgroundColor: '#ff7200' ,
-      
-      }}>
-      <Tabs.Screen 
-        name="index"
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: 'black',
+          headerShown:false,
+          tabBarInactiveBackgroundColor: 'black',
+          tabBarActiveBackgroundColor: '#ff7200' ,
         
-        options={{
-          /**tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'play' : 'home-outline'} color={'#ff7200'} />
-          ),*/
-          tabBarLabel:'Home',
+        }}>
+        <Tabs.Screen 
+          name="index"
           
-          tabBarLabelStyle:{
-            fontFamily: 'GilroyExtraBold',
-            fontSize: 16,
-            padding: 15,
-          }
-        }}
-      >
+          options={{
+            /**tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon name={focused ? 'play' : 'home-outline'} color={'#ff7200'} />
+            ),*/
+            tabBarLabel:'Home',
+            
+            tabBarLabelStyle:{
+              fontFamily: 'GilroyExtraBold',
+              fontSize: 16,
+              padding: 15,
+            }
+          }}
+        >
+          
+        </Tabs.Screen>
         
-      </Tabs.Screen>
-      
-      <Tabs.Screen 
-        name="radio"
-        options={{
-          tabBarLabel:'Radio',
+        <Tabs.Screen 
+          name="radio"
+          options={{
+            tabBarLabel:'Radio',
 
-          tabBarLabelStyle:{
-            fontFamily: 'GilroyExtraBold',
-            fontSize: 16,
-            padding: 15,
-          }
-        }}
-      />
-      <Tabs.Screen 
-        name="news"
-        options={{
-          tabBarLabel:'News',
-          tabBarLabelStyle:{
-            fontFamily: 'GilroyExtraBold',
-            fontSize: 16,
-            padding: 15,
-          }
-        }}
-      />
-      <Tabs.Screen 
-        name="shop"
-        options={{
-          tabBarLabel:'Shop',
-          tabBarLabelStyle:{
+            tabBarLabelStyle:{
+              fontFamily: 'GilroyExtraBold',
+              fontSize: 16,
+              padding: 15,
+            }
+          }}
+        />
+        <Tabs.Screen 
+          name="news"
+          options={{
+            tabBarLabel:'News',
+            tabBarLabelStyle:{
+              fontFamily: 'GilroyExtraBold',
+              fontSize: 16,
+              padding: 15,
+            }
+          }}
+        />
+        <Tabs.Screen 
+          name="shop"
+          options={{
+            tabBarLabel:'Shop',
+            tabBarLabelStyle:{
 
-            fontFamily: 'GilroyExtraBold',
-            fontSize: 16,
-            padding: 15,
-          }
-        }}
-      />
-      <Tabs.Screen 
-        name="videos"
-        options={{
-          tabBarLabel:'Videos',
-          tabBarLabelStyle:{
-            fontFamily: 'GilroyExtraBold',
-            fontSize: 16,
-            padding: 12,
-          }
-        }}
-      />
-      
-      
-    </Tabs>
+              fontFamily: 'GilroyExtraBold',
+              fontSize: 16,
+              padding: 15,
+            }
+          }}
+        />
+        <Tabs.Screen 
+          name="videos"
+          options={{
+            tabBarLabel:'Videos',
+            tabBarLabelStyle:{
+              fontFamily: 'GilroyExtraBold',
+              fontSize: 16,
+              padding: 12,
+            }
+          }}
+        />
+        
+        
+      </Tabs>
     
   );
 }

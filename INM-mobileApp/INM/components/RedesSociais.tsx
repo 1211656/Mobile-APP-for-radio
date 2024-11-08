@@ -1,26 +1,35 @@
 
 import React from 'react'
-import { Image, StyleSheet, Platform, View,Text, Button, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Platform, View,Text, Button, TouchableOpacity, Linking } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Foundation from '@expo/vector-icons/Foundation';
 
 const RedesSociais = () => {
+  const handlePress = (url: string) => {
+    Linking.openURL(url);
+  };
+  const iconPress = () => {
+    
+  }
+
   return (
     <View style={styles.topTopView}>
-        <View style={styles.topView}>
-          <Image source={require('../assets/images/AF-INEEDMUSIC-LOGO-WEBSITE.jpg')} style={styles.logoBrand} />
-        </View>
+        <TouchableOpacity onPress={()=>{}}>
+          <View style={styles.topView}>
+            <Image source={require('../assets/images/AF-INEEDMUSIC-LOGO-WEBSITE.jpg')} style={styles.logoBrand} />
+          </View>
+        </TouchableOpacity>
         <View style={styles.logosView}>
-          <TouchableOpacity onPress={()=>{}}>
+          <TouchableOpacity onPress={()=>{handlePress("https://www.facebook.com/INeedMusicRadio")}}>
             <AntDesign name="facebook-square" size={23} color="black" style={styles.logosSocialFacebook} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={()=>{}} >
+          <TouchableOpacity onPress={()=>{handlePress("https://www.instagram.com/ineedmusicradio/")}} >
             <Foundation name="social-instagram" size={28} color="black" style={styles.logosSocialInstagram} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={()=>{}} >
+          <TouchableOpacity onPress={()=>{handlePress("https://www.linkedin.com/company/i-need-music-radio")}} >
             <Foundation name="social-linkedin" size={28} color="black" style={styles.logosSocialLinkedin} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={()=>{}} >
+          <TouchableOpacity onPress={()=>{handlePress("https://www.youtube.com/@INeedMusicRadio")}} >
             <AntDesign name="youtube" size={27} color="black" style={styles.logosSocialYoutube} />
           </TouchableOpacity>
         </View>
@@ -35,9 +44,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent:'space-between',
         gap: 10,
-        
-        
-  
     },
     logosView:{
         flexDirection: 'row',

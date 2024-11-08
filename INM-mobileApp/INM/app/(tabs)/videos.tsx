@@ -1,12 +1,17 @@
-import { Text, View } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import React, { Component } from 'react'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 export class videos extends Component {
   render() {
     return (
-      <View>
-        <Text>videos</Text>
-      </View>
+      <GestureHandlerRootView>
+        
+          <ScrollView style={{backgroundColor: 'black'}}>
+
+          </ScrollView>
+        
+      </GestureHandlerRootView>
     )
   }
 }
